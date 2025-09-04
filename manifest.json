@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Novel Scraper & Saver",
+  "version": "0.3.0",
+  "description": "抓取小说章节并保存到本地（Edge/Chromium 扩展）",
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "downloads",
+    "storage",
+    "tabs",
+    "offscreen"
+  ],
+  "host_permissions": ["<all_urls>"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "service_worker.js"
+  },
+  "options_page": "options.html"
+}

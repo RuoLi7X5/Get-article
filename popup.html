@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>小说抓取与保存</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>小说抓取</h1>
+      <div class="controls">
+        <button id="scrapeBtn">抓取当前页</button>
+        <button id="scrapeAllBtn">抓取整本</button>
+        <button id="scrapeRangeBtn">抓取指定章节</button>
+        <button id="saveBtn" disabled>保存为 TXT</button>
+        <button id="settingsBtn">设置</button>
+      </div>
+
+      <!-- 章节选择区域 -->
+      <div id="chapterRangeContainer" style="display: none">
+        <div class="range-header">
+          <span>章节选择</span>
+          <button id="closeRangeBtn" class="small-btn">×</button>
+        </div>
+        <div class="range-input">
+          <label for="chapterRange">章节范围：</label>
+          <input
+            type="text"
+            id="chapterRange"
+            placeholder="例如：2-10 或 2,4,6-10"
+            style="width: 200px"
+          />
+          <button id="confirmRangeBtn" class="small-btn">开始抓取</button>
+        </div>
+        <div class="range-help">
+          <strong>语法说明：</strong><br />
+          • <code>2-10</code>：抓取第2章到第10章<br />
+          • <code>2,4,6-10</code>：抓取第2章、第4章、第6章到第10章<br />
+          • <code>1,3,5,7</code>：抓取第1、3、5、7章
+        </div>
+      </div>
+
+      <!-- 进度显示区域 -->
+      <div id="progressContainer" style="display: none">
+        <div class="progress-header">
+          <span id="progressTitle">整本抓取进度</span>
+          <div class="progress-controls">
+            <button id="pauseBtn" class="small-btn">暂停</button>
+            <button id="stopBtn" class="small-btn stop-btn">终止</button>
+          </div>
+        </div>
+        <div class="progress-bar">
+          <div id="progressFill"></div>
+        </div>
+        <div class="progress-info">
+          <span id="progressText">准备中...</span>
+          <span id="progressPercent">0%</span>
+        </div>
+        <div id="progressDetails" class="progress-details"></div>
+      </div>
+
+      <label>文件名：</label>
+      <input id="filename" placeholder="可自动生成：书名_章节.txt" />
+
+      <label>预览（可编辑）</label>
+      <textarea
+        id="preview"
+        rows="12"
+        placeholder="抓取后显示内容..."
+      ></textarea>
+
+      <div class="note">
+        注意：自动抓取采用常见页面结构的启发式查找，复杂网站可能需要自定义规则。
+      </div>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>

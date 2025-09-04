@@ -1,0 +1,176 @@
+body {
+  font-family: Segoe UI, Roboto, "Microsoft Yahei", Arial;
+  margin: 0;
+  padding: 12px;
+  width: 420px;
+}
+.container h1 {
+  font-size: 16px;
+  margin: 0 0 8px;
+}
+.controls {
+  margin-bottom: 8px;
+}
+button {
+  margin-right: 8px;
+  padding: 6px 10px;
+}
+input,
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 6px;
+  margin: 6px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.note {
+  font-size: 12px;
+  color: #666;
+  margin-top: 8px;
+}
+
+/* 进度显示样式 */
+#progressContainer {
+  margin: 12px 0;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.progress-header span {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.progress-controls {
+  display: flex;
+  gap: 6px;
+}
+
+.small-btn {
+  padding: 4px 8px;
+  font-size: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background: white;
+  cursor: pointer;
+}
+
+.small-btn:hover {
+  background: #f0f0f0;
+}
+
+.stop-btn {
+  background: #ffebee;
+  border-color: #f44336;
+  color: #d32f2f;
+}
+
+.stop-btn:hover {
+  background: #ffcdd2;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+#progressFill {
+  height: 100%;
+  background-color: #4caf50;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.progress-details {
+  font-size: 11px;
+  color: #888;
+  line-height: 1.3;
+}
+
+/* 章节选择样式 */
+#chapterRangeContainer {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 12px;
+  margin: 12px 0;
+  background: #f9f9f9;
+}
+
+.range-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+.range-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.range-input label {
+  font-size: 14px;
+  color: #555;
+  white-space: nowrap;
+}
+
+.range-input input {
+  flex: 1;
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.small-btn {
+  padding: 4px 8px;
+  font-size: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.small-btn:hover {
+  background: #f0f0f0;
+}
+
+.range-help {
+  font-size: 12px;
+  color: #666;
+  line-height: 1.4;
+}
+
+.range-help code {
+  background: #e8e8e8;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: monospace;
+}
