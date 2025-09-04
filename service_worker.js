@@ -89,14 +89,6 @@ function getChapterLinksScript(includeIndexAndChapterNum = true) {
     num: parseNum(l.text, l.href),
   }));
 
-  // 获取书名
-  const bookTitle =
-    document.querySelector("h1")?.innerText ||
-    document.querySelector(".book-title")?.innerText ||
-    document.querySelector("title")?.innerText ||
-    document.title ||
-    "未知书名";
-
   // 如果大部分项能解析出数字，则按数字升序排序
   const numCount = enriched.filter((x) => x.num !== null).length;
   if (numCount >= Math.max(3, Math.floor(enriched.length * 0.3))) {
@@ -1216,6 +1208,12 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
                   partStartChapter = globalIndex + 2;
                   // 小延时
                   await waitWithControl(200);
+                } else {
+                  // 分卷写入成功后，同样需要清空缓存并推进起始章节
+                  currentPartText = "";
+                  partStartChapter = globalIndex + 2;
+                  // 小延时
+                  await waitWithControl(200);
                 }
               }
               // 轻微延时以降低并发压力
@@ -1223,7 +1221,10 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
             }
 
             // 导出最后一卷（若有未导出内容）
-            if (currentPartText) {
+            // 仅在最后一个批次时导出最后一卷（若有未导出内容）
+            if (start + batchSize < total) {
+            // 非最后一批，跳过导出最后一卷
+            } else if (currentPartText) {
               const partEnd = chapterGlobalCounter;
               const baseName = `${bookTitle}${partStartChapter}-${partEnd}.txt`;
               const filename = generateFilename(baseName, config);

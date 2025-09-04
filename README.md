@@ -1,6 +1,6 @@
-# Novel Scraper & Saver
+# Get Article & Saver
 
-这是一个用于 Edge（Chromium）浏览器的扩展模板，用来抓取小说章节并保存到本地 TXT 文件。
+这是一个用于 Edge（Chromium）浏览器的扩展模板，用来抓取文章章节并保存到本地 TXT 文件。
 
 功能
 
