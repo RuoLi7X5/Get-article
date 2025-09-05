@@ -1,12 +1,18 @@
-// 后台 service worker：接收下载请求并使用 downloads API 保存为文件
+﻿// 后台 service worker：接收下载请求并使用 downloads API 保存为文件
 
 // 默认配置
 const DEFAULT_CONFIG = {
   volumeSize: 100, // 每卷章节数
   batchSize: 50, // 批量抓取大小
-  requestDelay: 150, // 请求间隔(ms)
+  requestDelay: 150, // 批次间请求间隔(ms)
   downloadPath: "", // 下载路径
   cleanEmptyLines: true, // 清理空行
+  // 新增：批次内并发与稳定性控制
+  concurrency: 10, // 批次内并发抓取数
+  timeoutMs: 15000, // 单请求超时
+  retryTimes: 2, // 抓取失败重试次数
+  jitterMin: 30, // 每次请求后的抖动最小值(ms)
+  jitterMax: 80, // 每次请求后的抖动最大值(ms)
 };
 
 // 抓取状态管理
@@ -1061,8 +1067,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
                               .map((p) => p.innerText.trim())
                               .filter((t) => t.length > 20);
                             if (ps.length) text = ps.join("\n\n");
-                            else
-                              text = doc.body.innerText.trim().slice(0, 20000);
+                            else text = doc.body.innerText.trim().slice(0, 20000);
                           }
                           const title =
                             doc.querySelector("h1")?.innerText || "";
@@ -1223,7 +1228,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
             // 导出最后一卷（若有未导出内容）
             // 仅在最后一个批次时导出最后一卷（若有未导出内容）
             if (start + batchSize < total) {
-            // 非最后一批，跳过导出最后一卷
+              // 非最后一批，跳过导出最后一卷
             } else if (currentPartText) {
               const partEnd = chapterGlobalCounter;
               const baseName = `${bookTitle}${partStartChapter}-${partEnd}.txt`;
@@ -1369,8 +1374,6 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
           }
         );
       });
-
-    // 必须返回 true 表示异步 sendResponse
-    return true;
+    return true; // 异步响应：download 分支
   }
 });
